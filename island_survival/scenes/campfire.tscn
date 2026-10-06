@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://campfire_scene_004"]
+
+[ext_resource type="Script" path="res://scripts/campfire.gd" id="1_campfire"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fire_body"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fire_heat"]
+radius = 180.0
+
+[sub_resource type="Gradient" id="Gradient_fire"]
+colors = PackedColorArray(1, 0.65, 0.2, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fire"]
+gradient = SubResource("Gradient_fire")
+width = 384
+height = 384
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Campfire" type="StaticBody2D"]
+script = ExtResource("1_campfire")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fire_body")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Log1" type="Polygon2D" parent="Visual"]
+color = Color(0.4, 0.22, 0.1, 1)
+polygon = PackedVector2Array(-10, -3, 10, -3, 10, 3, -10, 3)
+
+[node name="Log2" type="Polygon2D" parent="Visual"]
+color = Color(0.35, 0.18, 0.08, 1)
+polygon = PackedVector2Array(-3, -10, 3, -10, 3, 10, -3, 10)
+
+[node name="FlamePolygon" type="Polygon2D" parent="Visual"]
+color = Color(1, 0.55, 0.1, 1)
+polygon = PackedVector2Array(-6, 4, 0, -12, 6, 4)
+
+[node name="InnerFlame" type="Polygon2D" parent="Visual/FlamePolygon"]
+color = Color(1, 0.9, 0.2, 1)
+polygon = PackedVector2Array(-3, 2, 0, -8, 3, 2)
+
+[node name="HeatArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeatArea"]
+shape = SubResource("CircleShape2D_fire_heat")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.7, 0.3, 1)
+energy = 1.4
+texture = SubResource("GradientTexture2D_fire")
+texture_scale = 1.5

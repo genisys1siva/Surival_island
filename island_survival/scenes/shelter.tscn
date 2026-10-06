@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://shelter_scene_005"]
+
+[ext_resource type="Script" path="res://scripts/shelter.gd" id="1_shelter"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shelter"]
+size = Vector2(64, 44)
+
+[node name="Shelter" type="StaticBody2D"]
+script = ExtResource("1_shelter")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_shelter")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Walls" type="Polygon2D" parent="Visual"]
+color = Color(0.5, 0.32, 0.16, 1)
+polygon = PackedVector2Array(-28, -16, 28, -16, 28, 18, -28, 18)
+
+[node name="Roof" type="Polygon2D" parent="Visual"]
+color = Color(0.35, 0.2, 0.1, 1)
+polygon = PackedVector2Array(-32, -14, 0, -32, 32, -14)
+
+[node name="Door" type="Polygon2D" parent="Visual"]
+color = Color(0.2, 0.12, 0.05, 1)
+polygon = PackedVector2Array(-8, 2, 8, 2, 8, 18, -8, 18)

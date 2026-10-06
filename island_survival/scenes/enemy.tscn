@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://enemy_scene_003"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_enemy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wolf_body"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wolf_detect"]
+radius = 320.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wolf_attack"]
+radius = 38.0
+
+[node name="NightWolf" type="CharacterBody2D"]
+script = ExtResource("1_enemy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wolf_body")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="BodyPolygon" type="Polygon2D" parent="Visual"]
+color = Color(0.25, 0.25, 0.32, 1)
+polygon = PackedVector2Array(-14, -10, 16, -6, 22, 0, 16, 6, -14, 10, -18, 0)
+
+[node name="EarLeft" type="Polygon2D" parent="Visual"]
+color = Color(0.2, 0.2, 0.26, 1)
+polygon = PackedVector2Array(6, -8, 12, -14, 14, -6)
+
+[node name="EarRight" type="Polygon2D" parent="Visual"]
+color = Color(0.2, 0.2, 0.26, 1)
+polygon = PackedVector2Array(6, 8, 12, 14, 14, 6)
+
+[node name="EyeLeft" type="Polygon2D" parent="Visual"]
+color = Color(1, 0.2, 0.1, 1)
+polygon = PackedVector2Array(14, -4, 18, -4, 18, -2, 14, -2)
+
+[node name="EyeRight" type="Polygon2D" parent="Visual"]
+color = Color(1, 0.2, 0.1, 1)
+polygon = PackedVector2Array(14, 2, 18, 2, 18, 4, 14, 4)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_wolf_detect")
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_wolf_attack")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

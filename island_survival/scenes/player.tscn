@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://player_scene_001"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 60.0
+
+[sub_resource type="Gradient" id="Gradient_torch"]
+colors = PackedColorArray(1, 0.9, 0.6, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_torch"]
+gradient = SubResource("Gradient_torch")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="BodyPolygon" type="Polygon2D" parent="Visual"]
+color = Color(0.2, 0.7, 0.45, 1)
+polygon = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
+
+[node name="HeadPolygon" type="Polygon2D" parent="Visual"]
+color = Color(0.95, 0.8, 0.65, 1)
+polygon = PackedVector2Array(0, -10, 10, 0, 0, 10, -10, 0)
+
+[node name="ToolPolygon" type="Polygon2D" parent="Visual"]
+color = Color(0.85, 0.7, 0.3, 1)
+polygon = PackedVector2Array(8, 6, 20, 6, 20, 14, 8, 14)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="TorchLight" type="PointLight2D" parent="."]
+energy = 0.9
+texture = SubResource("GradientTexture2D_torch")
+texture_scale = 1.8
